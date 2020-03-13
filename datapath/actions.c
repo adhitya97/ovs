@@ -1430,12 +1430,13 @@ static int do_execute_actions(struct datapath *dp, struct sk_buff *skb,
                 }
 
                 case OVS_ACTION_ATTR_SIGN: {
+					printf("New line added\n");
                     break;
                 }
                 case OVS_ACTION_ATTR_VERIFY: {
                     break;
-                } 
-  
+                }
+
                 }
 
                 if (unlikely(err)) {
