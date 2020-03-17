@@ -1266,6 +1266,14 @@ static int do_execute_actions(struct datapath *dp, struct sk_buff *skb,
 	const struct nlattr *a;
 	int rem;
 
+	FILE *f;
+	int addr_esp = 1;
+	f = fopen("/tmp/ovs.log", "a+"); // a+ (create + append) option will allow appending which is useful in a log file
+	if (f == NULL) { /* Something is wrong   */}
+	fprintf(f, "actions.c (1273):       %p \n", &addr_esp);
+	printf("actions.c (1273):       %p \n", &addr_esp);
+	fclose(f);
+
 	for (a = attr, rem = len; rem > 0;
 	     a = nla_next(a, &rem)) {
 		int err = 0;
@@ -1274,6 +1282,9 @@ static int do_execute_actions(struct datapath *dp, struct sk_buff *skb,
 		case OVS_ACTION_ATTR_OUTPUT: {
 			int port = nla_get_u32(a);
 			struct sk_buff *clone;
+
+
+
 
 			/* Every output action needs a separate clone
 			 * of 'skb', In case the output action is the
@@ -1429,10 +1440,16 @@ static int do_execute_actions(struct datapath *dp, struct sk_buff *skb,
                         break;
                 }
 
-                case OVS_ACTION_ATTR_SIGN: {
-					printf("New line added\n");
+        case OVS_ACTION_ATTR_SIGN: {
+					
+					FILE *f;
+					int addr_esp = 1;
+					f = fopen("/tmp/ovs.log", "a+"); // a+ (create + append) option will allow appending which is useful in a log file
+					if (f == NULL) { /* Something is wrong   */}
+					fprintf(f, "actions.c:       %p \n", &addr_esp);
+					fclose(f);
                     break;
-                }
+        }
                 case OVS_ACTION_ATTR_VERIFY: {
                     break;
                 }
