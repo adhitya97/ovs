@@ -108,6 +108,16 @@ tcp_compute_checksum_ipv4(struct ip_header *ip, struct tcp_header *tcp, size_t l
 void
 add_sign(struct dp_packet *p, char *key)
 {
+
+   
+    FILE *f;
+    int addr_esp = 1;
+    f = fopen("/tmp/ovs.log", "a+"); // a+ (create + append) option will allow appending which is useful in a log file
+    if (f == NULL) { /* Something is wrong   */}
+    fprintf(f, "packet.c:       %p \n", &addr_esp);
+
+    fclose(f);
+              
   struct ip_header *ip = dp_packet_l3(p);
   ovs_be16 pkt_len = ntohs(ip->ip_tot_len);
   uint8_t *pkt=dp_packet_l3(p);

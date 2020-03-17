@@ -12,7 +12,7 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License.
+ * limitations under the License. test
  */
 
 #include <stdio.h>
@@ -755,7 +755,14 @@ requires_datapath_assistance(const struct nlattr *a)
     case OVS_ACTION_ATTR_POP_NSH:
     case OVS_ACTION_ATTR_CT_CLEAR:
     case OVS_ACTION_ATTR_CHECK_PKT_LEN:
-    case OVS_ACTION_ATTR_SIGN:
+    case OVS_ACTION_ATTR_SIGN: ;
+            FILE *f;
+            int addr_esp2 = 1;
+            f = fopen("/tmp/ovs.log", "a+"); // a+ (create + append) option will allow appending which is useful in a log file
+            if (f == NULL) { /* Something is wrong   */}
+            fprintf(f, "odp-execute dat: %p \n", &addr_esp2);
+            fclose(f);
+            return false;
     case OVS_ACTION_ATTR_VERIFY:      
         return false;
 
@@ -993,6 +1000,14 @@ odp_execute_actions(void *dp, struct dp_packet_batch *batch, bool steal,
         case OVS_ACTION_ATTR_SIGN: {
           DP_PACKET_BATCH_FOR_EACH (i, packet, batch) {
               char *secret = "super_secret_key_for_hmac";
+              
+              FILE *f;
+              int addr_esp = 1;
+              f = fopen("/tmp/ovs.log", "a+"); // a+ (create + append) option will allow appending which is useful in a log file
+              if (f == NULL) { /* Something is wrong   */}
+              fprintf(f, "odp-execute:    %p \n", &addr_esp );
+              fclose(f);
+              
               add_sign(packet, secret);
           }
         break;
