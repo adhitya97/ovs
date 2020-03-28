@@ -80,3 +80,5 @@ testsuite.tmp.orig
 /Documentation/_build
 /.venv
 /cxx-check
+INSTRUCTIONS_OVS_MINIONS
+test_changes.sh
