@@ -82,3 +82,4 @@ testsuite.tmp.orig
 /cxx-check
 INSTRUCTIONS_OVS_MINIONS
 test_changes.sh
+setup_new_cloud_lab_project.sh
